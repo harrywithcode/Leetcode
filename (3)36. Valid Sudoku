@@ -4,7 +4,7 @@ public class Solution {
     for (int i=0; i<9; ++i) {
         for (int j=0; j<9; ++j) {
             char number = board[i][j];
-            if (number != '.')
+            if (number != '.')      //use " " for string. Use ' ' for char
                 if (!seen.add(number + " in row " + i) ||           //Even though .add is in "if", but it still work, like "if(a++)"
                     !seen.add(number + " in column " + j) ||
                     !seen.add(number + " in block " + i/3 + "-" + j/3))
