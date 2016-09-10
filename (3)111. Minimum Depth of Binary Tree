@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int minDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        if(root.left == null) return minDepth(root.right) + 1;//This is not a leaf node, it's an internal node, check its left&right child
+        if(root.right == null) return minDepth(root.left) + 1;
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+    }
+}
+
+The idea is to traverse the given Binary Tree. 
+For every node, check if it is a leaf node. 
+If yes, then return 1. If not leaf node then if left subtree is NULL, then recur for right subtree. 
+And if right subtree is NULL, then recur for left subtree. 
+If both left and right subtrees are not NULL, then take the minimum of two heights.
