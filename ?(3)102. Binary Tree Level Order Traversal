@@ -21,7 +21,7 @@ public class Solution {
         if(res.size() == level){  //size shi cong 1 kaishi, level shi cong 0 kaishi, size bixu dengyu level+1
             res.add(new ArrayList<>());
         }
-        res.get(level++).add(node.val); //why level++, how recursive works??
+        res.get(level++).add(node.val); //why level++, how recursive works??(look below)
         helper(node.left, level, res);
         helper(node.right, level, res);
     }
@@ -51,3 +51,30 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 		}
 		return res;
 	}
+	
+// This version would be easier to understand
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        helper(root,0,result);
+        return result;
+    }
+    private void helper(TreeNode root, int level, List<List<Integer>> res){
+        if(root == null) return;
+        if(res.size() == level){
+            res.add(new ArrayList());
+        }
+        res.get(level).add(root.val);
+        helper(root.left, level+1, res);
+        helper(root.right, level+1, res);
+    }
+}
