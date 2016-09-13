@@ -21,7 +21,7 @@ public class Solution {
         if(res.size() == level){  //size shi cong 1 kaishi, level shi cong 0 kaishi, size bixu dengyu level+1
             res.add(new ArrayList<>());
         }
-        res.get(level++).add(node.val);
+        res.get(level++).add(node.val); //why level++, how recursive works??
         helper(node.left, level, res);
         helper(node.right, level, res);
     }
