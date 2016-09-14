@@ -14,7 +14,7 @@ public class Solution {
         if(root == null) return result;
         path = root.val + "";
         helper(root, result, path);
-        return result;  //return dao nali qu le???
+        return result;  //return dao nali qu le??? Fan hui dao bianyiqi de shangyibu caozuo ?
     }
     private void helper(TreeNode node, List<String> res, String s){
         if(node.left == null && node.right == null){
