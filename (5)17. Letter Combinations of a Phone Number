@@ -1,0 +1,15 @@
+public class Solution {
+    public List<String> letterCombinations(String digits) {
+        char [] a2 = {'a', 'b', 'c'};
+        char [] a3 = {'d', 'e', 'f'};
+        char [] a4 = {'g', 'h', 'i'};
+        char [] a5 = {'j', 'k', 'l'};
+        char [] a6 = {'m', 'n', 'o'};
+        char [] a7 = {'p', 'q', 'r', 's'};
+        char [] a8 = {'t', 'u', 'v'};
+        char [] a9 = {'w', 'x', 'y', 'z'};
+        for(int i = 0; i < digits.length(); i++){
+            
+        }
+    }
+}
