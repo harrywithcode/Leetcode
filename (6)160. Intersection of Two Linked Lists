@@ -33,3 +33,7 @@ public class Solution {
         return a;
     }
 }
+
+
+//In my opinion, after the first iteration, the longer list will run earlier than the shorter one.
+//After the shorter list get ready, the longer one has runned several nodes. And they begin with the same length.
