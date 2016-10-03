@@ -1,0 +1,25 @@
+public class Solution {
+    public String countAndSay(int n) {
+        StringBuilder str1 = new StringBuilder();
+        StringBuilder str2 = new StringBuilder();
+        str1.append(1);
+        str2.append(11);
+        for(int i = 3; i < = n; i++){
+            while(str1.charAt(j + 1) != null){
+                int count = 0;
+                int j = 2;
+                if(str1.charAt(j + 1) == str1.charAt(j)){
+                    count++;
+                    j++;
+                }
+                else{
+                    str2.append(count);
+                    str2.append(str1.charAt(j));
+                    str1.clean;
+                    str1 = str2;
+                }
+            }
+        }
+        return str2;
+    }
+}
