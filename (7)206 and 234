@@ -1,0 +1,23 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode fakeHead = new ListNode(-1);
+        fakeHead.next = head;
+        ListNode forward = head;
+        ListNode back = head;
+        while(back.next.next != null){
+            forward = forward.next;
+            back = back.next.next;
+        }
+        while(forward.next != null){
+            
+        }
+    }
+}
