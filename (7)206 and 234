@@ -8,16 +8,42 @@
  */
 public class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode fakeHead = new ListNode(-1);
-        fakeHead.next = head;
-        ListNode forward = head;
-        ListNode back = head;
-        while(back.next.next != null){
-            forward = forward.next;
-            back = back.next.next;
+        if(head == null || head.next == null){
+            return true;
         }
-        while(forward.next != null){
-            
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
+        if(fast != null){
+            slow = slow.next; // if there are odd nodes, slow can't be the mid one, because we will reverse later
+        }
+        
+        slow = reverseList(slow);
+        
+       
+       while(slow!=null && head!=null && slow.val == head.val){
+            slow = slow.next;
+            head = head.next;
+        }
+        return (slow == null && head == null); 
+    }
+    
+    
+    
+    private ListNode reverseList(ListNode head) {
+        if(head != null && head.next != null){
+            ListNode pivot = head;
+            ListNode front = null;
+            while(pivot != null && pivot.next != null){
+                front = pivot.next;
+                pivot.next = pivot.next.next;
+                front.next=head;
+                head=front;
+            }
+        }
+        return head;
     }
 }
