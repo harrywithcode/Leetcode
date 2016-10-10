@@ -1,6 +1,7 @@
+////////My solution, slow
 public class Solution {
     public String longestCommonPrefix(String[] strs) {
-        if(strs.length == 0){
+        if(strs.length == 0 || strs == null){
             return "";
         }
         String prefix = new String();
@@ -9,12 +10,56 @@ public class Solution {
             if(strs[i].length() == 0){
                 return "";
             }
-            for(int j = 0; j < Math.min(prefix.length(), strs[i].length()) - 1; j++){
+            prefix = prefix.substring(0,Math.min(prefix.length(), strs[i].length()));
+            for(int j = 0; j < Math.min(prefix.length(), strs[i].length()); j++){
                 if(prefix.charAt(j) != strs[i].charAt(j)){
+                    if(j == 0){ 
+                        return "";
+                    }
                     prefix = prefix.substring(0,j);
                 }
+                
             }
         }
         return prefix;
+    }
+}
+
+/////////Another solution, clear
+public class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0 || strs == null){
+            return "";
+        }
+        String prefix = new String();
+        prefix = strs[0];
+        for(int i = 1; i < strs.length; i++){
+            int j = 0;
+            while(j < prefix.length() && j < strs[i].length() && prefix.charAt(j) == strs[i].charAt(j)){
+                j++;
+            }
+            if(j == 0){
+                return "";
+            }
+            prefix = prefix.substring(0,j);
+        }
+        return prefix;
+    }
+}
+/////////indexof
+public class Solution {
+    public String longestCommonPrefix(String[] strs) {
+    if(strs == null || strs.length == 0){   
+        return "";
+    }
+    String pre = strs[0];
+    int i = 1;
+    while(i < strs.length){
+        while(strs[i].indexOf(pre) != 0){
+            pre = pre.substring(0,pre.length()-1);
+        }
+        i++;
+    }
+    return pre;
     }
 }
