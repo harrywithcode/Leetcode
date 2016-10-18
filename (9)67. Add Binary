@@ -1,0 +1,68 @@
+///Myself, need to edit more
+public class Solution {
+    public String addBinary(String a, String b) {
+        int count = 0;
+        for(int i = 0; i < Math.min(a.length(), b.length()); i++){
+            int x = Integer.parseInt(a.charAt(a.length()-i);
+            int y = Integer.parseInt(b.charAt(b.length()-i);
+            StringBuilder result = new StringBuilder();
+            if(x + y + count >= 2){
+                count++;
+                result.append(0);
+            }
+            if(x + y + count == 1){
+                count = 0;
+                result.append(1);
+            }
+            if(x + y + count == 0){
+                count = 0;
+                result.append(0);
+            }
+        }
+        for(int j = 0; j < Math.max(a.length(), b.length()) - Math.min(a.length(), b.length()); j++){
+            String c = findL(a,b);
+            int z = Integer.parseInt(Math.min(a.length(), b.length()) + 1);
+            if(z + count >= 2){
+                result.append(0);
+                count++;
+            }
+            if(z + count == 1){
+                count
+            }
+        }
+    }
+    private String findL(String a, String b){
+        if(a.length() > b.length()){
+            return a;
+        }
+        else{
+            return b;
+        }
+    }
+}
+
+
+//////////////correct version
+public class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int i = a.length() - 1;
+        int j = b.length() -1;
+        int count = 0;
+        while (i >= 0 || j >= 0) {
+            int sum = count;
+            if (j >= 0){
+                sum += b.charAt(j--) - '0';  
+            } 
+            if (i >= 0){
+                sum += a.charAt(i--) - '0';   
+            }
+            result.append(sum % 2);
+            count = sum / 2;
+        }
+        if (count > 0){
+            result.append(count);
+        }
+        return result.reverse().toString();
+    }
+}
