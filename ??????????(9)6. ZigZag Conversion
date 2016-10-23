@@ -1,0 +1,20 @@
+public class Solution {
+    public String convert(String s, int numRows) {
+       if(numRows == 1){
+           return s;
+       }
+       int distance = 2 * (numRows - 1);          // distance between items in the first row
+       int length = s.length();
+       char[] c = new char[length];
+       int k = 0;
+       for(int i = 0; i < numRows; i++){         //every single row
+           for(int j = i; j < length; j = j + distance){        
+               c[k++] = s.charAt(j);
+               if(i > 0 && i < numRows - 1 && j + distance - 2 * i < length){
+                   c[k++] = s.charAt(j + distance - 2 * i);
+               }
+           }
+       }
+       return new String(c);
+    }
+}
