@@ -1,0 +1,23 @@
+public class Solution {
+    public int maxRotateFunction(int[] A) {
+        if(A.length == 0){
+            return 0;
+        }
+        int basic = 0;
+        int item = 0;
+        for(int i = 0; i < A.length; i++){
+            basic = basic + i * A[i];
+            item = item + A[i];
+        }
+        int max = basic;
+        for(int i = 0; i < A.length - 1; i++){
+            basic = basic - item + A.length * A[i];
+            max = Math.max(max, basic);
+        }
+        return max;
+    }
+}
+//First, list each situation in array A.
+//Next, find relationship between each step
+//Finally, you find you should use dynamic programming
+//Easy question
