@@ -1,0 +1,46 @@
+class question{
+	public Boolean test(Node left1, Node left2, Node right1, Node right2){
+		if(right1.x < left2.x || left2.y > right1.y || left1.x > right2.x || left1.y > right2.y){
+			return false;
+		}
+		else return true;
+	}
+}
+class Node{
+	double x,y;
+	public Node(double x,double y){
+		this.x=x;
+		this.y=y;
+	}
+}
+public class Solution {
+	public static void main(String[] args){
+		Node n1 = new Node(-2,-2);
+		Node n2 = new Node(-2,-2);
+		Node n3 = new Node(2,2);
+		Node n4 = new Node(2,2);
+		question q = new question();
+		Boolean f = q.test(n1,n2,n3,n4);
+		System.out.print(f);		
+	}
+}
+///////////////////////////////
+class question{
+	public Boolean test(int a, int b, int c, int d, int e, int f, int g, int h){
+		if(e>c || f>d || a>g || b>h){
+			return false;
+		}
+		else return true;
+	}
+}
+
+public class Solution {
+	public static void main(String[] args){
+		
+		question q = new question();
+		Boolean f = q.test(-2,-2,2,2,-2,-2,2,2);
+		System.out.print(f);
+		
+		
+	}
+}
