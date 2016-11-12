@@ -1,5 +1,5 @@
 class question{
-	public Boolean test(Node left1, Node left2, Node right1, Node right2){
+	public static Boolean test(Node left1, Node left2, Node right1, Node right2){
 		if(right1.x < left2.x || left2.y > right1.y || left1.x > right2.x || left1.y > right2.y){
 			return false;
 		}
@@ -26,7 +26,7 @@ public class Solution {
 }
 ///////////////////////////////
 class question{
-	public Boolean test(int a, int b, int c, int d, int e, int f, int g, int h){
+	public static Boolean test(int a, int b, int c, int d, int e, int f, int g, int h){
 		if(e>c || f>d || a>g || b>h){
 			return false;
 		}
