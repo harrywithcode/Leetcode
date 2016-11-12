@@ -1,3 +1,4 @@
+所有的method记得加static
 class question{
 	public static Boolean test(Node left1, Node left2, Node right1, Node right2){
 		if(right1.x < left2.x || left2.y > right1.y || left1.x > right2.x || left1.y > right2.y){
@@ -44,3 +45,30 @@ public class Solution {
 		
 	}
 }
+
+////////////////别人写的///////////////////class 里面放 class 不太懂
+public class OverLap {
+     // rectangle A, B
+     // time O(1), space O(1)
+    public static boolean check(Node topLeftA, Node topLeftB, Node bottomRightA, Node bottomRightB) {
+        // if one rectangle is on left side of other
+        if (bottomRightA.y <= topLeftB.y || bottomRightB.y <= topLeftA.y) {
+            return false;
+        }
+        // if one rectangle is above other
+        if (topLeftA.x >= bottomRightB.x || topLeftB.x >= bottomRightA.x) {
+            return false;
+        }
+        return true;
+    }
+    public static class Node {
+        double x;
+        double y;
+        public Node(double x, double y) {
+            this.x = x;
+            this.y = y; 
+        }
+    }
+}
+//更简单的，一行解决
+// return !(bottomRightA.y <= topLeftB.y || bottomRightB.y <= topLeftA.y || topLeftA.x >= bottomRightB.x || topLeftB.x >= bottomRightA.x);
