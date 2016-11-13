@@ -1,0 +1,158 @@
+具体逻辑都是一样的，这个版本比较好理解一些。注意题的要求是，课程编号从0开始，n-1结束，有局限性
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+class question {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] visited = new int[numCourses];
+        Stack<Integer> stack = new Stack<Integer>();
+        List<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+        
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] == 0 && dfsDetectCycle(graph, visited, stack, i)) return new int[0];
+        }
+        int[] order = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) 
+            order[i] = stack.pop();
+        return order;
+    }
+    
+    private boolean dfsDetectCycle(List<ArrayList<Integer>> graph, int[] visited,
+    		Stack<Integer> stack, int prere) {
+        visited[prere] = -1; //Gray
+        for (int course: graph.get(prere)) {
+            if (visited[course] == -1) return true;
+            else if (visited[course] == 0 && dfsDetectCycle(graph, visited, stack, course)) return true;
+        }
+        visited[prere] = 1; //Black
+        stack.push(prere);
+        return false;
+    }
+}
+
+public class Solution{
+	public static void main(String[] args){
+		question q = new question();
+		int numCourses = 4;
+		int[][] prerequisites = new int[4][2];
+		prerequisites[0][0] = 1;
+		prerequisites[0][1] = 0;
+		prerequisites[1][0] = 2;
+		prerequisites[1][1] = 0;
+		prerequisites[2][0] = 3;
+		prerequisites[2][1] = 1;
+		prerequisites[3][0] = 3;
+		prerequisites[3][1] = 2;
+		int [] result = new int[4];
+		result = q.findOrder(numCourses,prerequisites);
+		for(int i = 0;i < 4; i++){
+			System.out.print(result[i]+" ");
+		}
+	}
+}
+
+////////////输入是string，order格式
+import java.util.*;
+
+class Order{
+    String order = "";
+    public Order(String string){
+        this.order = string;
+    }
+}
+class OrderDependency{
+    Order cur;
+    Order pre;
+    public OrderDependency(Order o1, Order o2){
+        cur = o1;
+        pre = o2;
+    }
+}
+
+public class Solution {
+    public static List<Order> findOrder(/*int numCourses,*/ List<OrderDependency> prerequisites) {
+        List<Order> result = new ArrayList<Order>();
+        Map<Order, ArrayList<Order>> pointTo = new HashMap<>();
+        Map<Order, Integer> numToMe = new HashMap<>();
+        Set<Order> appear = new HashSet<>();
+        for(OrderDependency i : prerequisites){
+        	Order cur = i.cur;
+        	Order pre = i.pre;
+        	appear.add(cur);
+        	appear.add(pre);
+        	
+        	if(numToMe.containsKey(cur)){
+        		int degree = numToMe.get(cur);
+        		numToMe.put(cur, degree+1);
+        	}
+        	else{
+        		numToMe.put(cur, 1);
+        	}
+        	if(!numToMe.containsKey(pre)){
+        		numToMe.put(pre, 0);
+        	}
+        	if(pointTo.containsKey(pre)){
+        		pointTo.get(pre).add(cur);
+        	}
+        	else{
+        		pointTo.put(pre, new ArrayList<>());
+        		pointTo.get(pre).add(cur);
+        	}
+        	if(!pointTo.containsKey(cur)){
+        		pointTo.put(cur,new ArrayList<>());
+        	}
+        }
+        Queue<Order> queue = new LinkedList<>();
+        int total = appear.size();
+        for(Order i : numToMe.keySet()){
+        	if(numToMe.get(i) == 0){
+        		queue.offer(i);
+        	}
+        }
+        while (!queue.isEmpty()){
+            Order order = queue.poll();
+            result.add(order);
+            for (Order odr : pointTo.get(order)){
+                //这里查入度,类比剥洋葱,如果剥到了0,说明是最外层。
+                numToMe.put(odr, numToMe.get(odr) - 1);
+                if (numToMe.get(odr) == 0){
+                    queue.offer(odr);
+                }
+            }
+        }
+        //这里如果有环的话,肯定是剥不出来的,那么set里面的个数和result里面的个数不一致。
+        if (result.size() != total) return new ArrayList<Order>();
+        return result;
+    
+    }
+    
+    
+
+
+public static void main(String[] args) {
+    Order o1 = new Order("A");
+    Order o2 = new Order("B");
+    Order o3 = new Order("C");
+    Order o4 = new Order("D");
+    OrderDependency od1 = new OrderDependency(o1, o2);
+    OrderDependency od2 = new OrderDependency(o2, o3);
+    //成环的情况就是把o4，改成o2，看看输出。
+    OrderDependency od3 = new OrderDependency(o3, o4);
+    List<OrderDependency> list = new ArrayList<>();
+    list.add(od1);
+    list.add(od2);
+    list.add(od3);
+    
+    for (Order o : findOrder(list)){
+        System.out.println(o.order);
+    }
+}
+}
