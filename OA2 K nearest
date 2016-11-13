@@ -1,4 +1,4 @@
-//此程序有问题，并且，这里面的method不需要加，也不能加static，具体原因会搞懂的
+//此程序需要注意getdistance那里a和b的顺序问题，并且，这里面的method不需要加，也不能加static，具体原因会搞懂的
 //其他几个参考网站如下
 http://stackoverflow.com/questions/20398799/find-k-nearest-points-to-point-p-in-2-dimensional-plane
 http://www.zrzahid.com/k-closest-points/
