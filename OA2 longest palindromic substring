@@ -1,0 +1,65 @@
+public class Solution {
+    private int low, high;
+    public String longestPalindrome(String s) {
+        int length = s.length();
+        if(length < 2){
+            return s;
+        }
+        for(int i = 0; i < length - 1; i++){
+            test(s,i,i);
+            test(s,i,i+1);
+        }
+        return s.substring(low,high);
+    }
+    private void test(String s, int j, int k){
+        while(j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)){
+            j--;
+            k++;
+        }
+        if(high - low < k - j){
+            low = j+1;
+            //maxlen = k - j - 1;
+            high = k;
+        }
+    }
+}
+
+/////////////////////////////////在eclipse上的实现//感觉和他们给的答案一样，而且我的更好理解，功能也都可以实现
+package longestPalinSubstring;
+
+class question{
+	private int low, max;
+	public String longest(String s){
+		int length = s.length();
+		if(length < 2){
+			return s;
+		}
+		for(int i = 0; i < length - 1; i++){
+			test(s,i,i);
+			test(s,i,i+1);
+		}
+		return s.substring(low,max);
+	}
+	private void test(String s, int j, int k){
+		while(j>=0 && k < s.length() && s.charAt(j) == s.charAt(k)){
+			j--;
+			k++;
+		}
+		if(k - j > max - low){
+			max = k;
+			low = j+1;
+		}
+	}
+}
+
+public class Solution {
+	public static void main(String[] args){
+		question q = new question();
+		String s = "babad";
+		String a = new String();
+		a = q.longest(s);
+		for(int i = 0; i < a.length(); i++){
+			System.out.println(a.charAt(i)+" ");
+		}
+	}
+}
