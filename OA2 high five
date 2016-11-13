@@ -1,0 +1,65 @@
+import java.util.*;
+class Result{
+    int id;
+    int value;
+    public Result(int id, int value){
+        this.id = id;
+        this.value = value;
+    }
+}
+
+class question{
+	public Map<Integer, Double> test(Result[] r){
+		Map<Integer,Double> result = new HashMap<>();
+		Map<Integer, ArrayList<Integer>> data = new HashMap<>();
+		for(Result res : r){
+			int id = res.id;
+			if(data.containsKey(id)){
+				ArrayList<Integer> oneData = data.get(id);
+				oneData.add(res.value);
+				data.put(id, oneData);
+			}
+			else{
+				ArrayList<Integer> oneData = new ArrayList<>();
+				oneData.add(res.value);
+				data.put(id, oneData);
+			}
+		}
+		for(Integer id : data.keySet()){
+			ArrayList<Integer> list = data.get(id);
+			int[] temp = new int[list.size()];
+			for(int i = 0; i < temp.length; i++){
+				temp[i] = list.get(i);
+			}
+			Arrays.sort(temp);
+			double average = 0;
+			for(int j = temp.length - 1; j > temp.length - 6; j--){
+				average = average+temp[j];
+			}
+			average = average/5.0;
+			result.put(id,average);
+		}
+		return result;
+	}
+}
+public class fiveScore {
+	public static void main(String[] args){
+		question q = new question();
+		Result r1 = new Result(1, 95);
+        Result r2 = new Result(1, 95);
+        Result r3 = new Result(1, 91);
+        Result r4 = new Result(1, 91);
+        Result r5 = new Result(1, 93);
+        Result r6 = new Result(1, 105);
+
+        Result r7 = new Result(2, 6);
+        Result r8 = new Result(2, 6);
+        Result r9 = new Result(2, 7);
+        Result r10 = new Result(2, 6);
+        Result r11 = new Result(2, 6);
+        Result[] arr = {r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11};
+        Map<Integer, Double> res = q.test(arr);
+
+        System.out.println(res.get(1) + " " +res.get(2));
+	}
+}
