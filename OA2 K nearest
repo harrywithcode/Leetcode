@@ -1,0 +1,59 @@
+//这里面的method不需要加，也不能加static，具体原因会搞懂的
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+import java.lang.Math;
+
+class Point{
+	double x;
+	double y;
+	public Point(double x, double y){
+		this.x = x;
+		this.y = y;
+	}
+}
+
+class KNearestPoint{
+	public Point[] test(Point[] array, Point origin, int k){
+		Point[] rvalue = new Point[k];
+		int index = 0;
+		PriorityQueue<Point> pq = new PriorityQueue<Point>(k, new Comparator<Point>(){
+			@Override
+			public int compare(Point a, Point b){
+				return (int) (getDistance(b, origin) - getDistance(a, origin));
+			}
+		});
+		
+		for(int i = 0; i < array.length; i++){
+			pq.offer(array[i]);
+			if(pq.size()>k){
+				pq.poll();
+			}
+		}
+		
+		while(!pq.isEmpty()){
+			rvalue[index++] = pq.poll();
+		}
+		return rvalue;
+	}
+	private static double getDistance(Point a, Point b){
+		return Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y - b.y)*(a.y - b.y));
+	}
+}
+public class Solution {
+	public static void main(String[] args){
+		KNearestPoint kk = new KNearestPoint();
+		Point a = new Point(1,2);
+		Point b = new Point(2,3);
+		Point c = new Point(3,4);
+		Point d = new Point(4,5);
+		Point[] array = {a,b,c,d};
+		Point origin = new Point(0,0);
+		int k = 3;
+		Point[] result = new Point[2];
+		result = kk.test(array, origin,k);
+		for(int i = 0; i < result.length; i++){
+			System.out.println((result[i])+" ");
+		}
+	}
+}
