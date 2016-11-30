@@ -1,0 +1,36 @@
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int min = nums[0];
+        int max = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] < min){
+                min = nums[i];
+            }
+            if(nums[i] > max){
+                max = nums[i];
+            }
+        }
+        //find the max and min that fit the target value
+        int newMin = Math.max(min, target - max);
+        int newMax = Math.min(max, target - min);
+        
+        int size = newMax - newMin + 1;
+        int []array = new int[size];
+        for(int i = 0; i < array.length; i++){
+            array[i] = -1;
+        }
+        
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] > newMax || nums[i] < newMin){
+                continue;
+            }
+            if(array[nums[i] - newMin] == -1){
+                array[target - (nums[i] + newMin)] = i;
+            }
+            else{
+                return new int[]{array[nums[i] - newMin] ,i};
+            }
+        }
+        return new int[]{0,0};
+    }
+}
