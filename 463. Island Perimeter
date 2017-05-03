@@ -1,0 +1,23 @@
+public class Solution {
+    public int islandPerimeter(int[][] grid) {
+        int island = 0;
+        int neighbour = 0;
+        int height = grid[0].length;
+        int width = grid.length;
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(grid[j][i] == 1){
+                    island++;
+                    if(i < height - 1 && grid[j][i + 1] == 1){
+                        neighbour++;
+                    }
+                    if(j < width - 1 && grid[j + 1][i] == 1){
+                        neighbour++;
+                    }
+                }
+            }
+        }
+        return 4 * island - 2 * neighbour;
+    }
+}
+//every single island has 4 edges. When there is one neighbour appear, 2 edges disappear
